@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Hesap Makinesi</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    #display {
+      font-size: 1.5em; 
+    }
+
+    .calculator-button {
+      font-size: 2em;
+    }
+  </style>
+</head>
+<body>
+ 
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-auto">
+        <div class="card">
+          <div class="card-header">
+            <h3 class="text-center">Hesap Makinesi</h1>
+          </div>
+          <div class="card-body">
+            <input type="text" id="display" class="form-control mb-2" readonly>
+  
+            <div class="row">
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('1')">1</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('2')">2</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('3')">3</button></div>
+              <div class="col-3"><button class="btn btn-warning btn-block calculator-button" onclick="appendToDisplay('+')">+</button></div>
+            </div>
+            <div class="row">
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('4')">4</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('5')">5</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('6')">6</button></div>
+              <div class="col-3"><button class="btn btn-warning btn-block calculator-button" onclick="appendToDisplay('-')">-</button></div>
+            </div>
+            <div class="row">
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('7')">7</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('8')">8</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('9')">9</button></div>
+              <div class="col-3"><button class="btn btn-warning btn-block calculator-button" onclick="appendToDisplay('*')">*</button></div>
+            </div>
+            <div class="row">
+              <div class="col-3"><button class="btn btn-danger btn-block calculator-button" onclick="clearDisplay()">C</button></div>
+              <div class="col-3"><button class="btn btn-secondary btn-block calculator-button" onclick="appendToDisplay('0')">0</button></div>
+              <div class="col-3"><button class="btn btn-success btn-block calculator-button" onclick="calculate()">=</button></div>
+              <div class="col-3"><button class="btn btn-warning btn-block calculator-button" onclick="appendToDisplay('/')">/</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  let isOperatorAdded = false;
+
+  function appendToDisplay(value) {
+    const display = document.getElementById('display');
+    
+    if (isOperatorAdded && '+-*/'.includes(value)) {
+      // If an operator is already added, prevent adding another one.
+      return;
+    }
+
+    display.value += value;
+    isOperatorAdded = '+-*/'.includes(value);
+  }
+
+  function calculate() {
+    try {
+      document.getElementById('display').value = eval(document.getElementById('display').value);
+      isOperatorAdded = false;
+    } catch (error) {
+      document.getElementById('display').value = 'Hata';
+    }
+  }
+
+  function clearDisplay() {
+    document.getElementById('display').value = '';
+    isOperatorAdded = false;
+  }
+</script>
+
+</body>
+</html>
